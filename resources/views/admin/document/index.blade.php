@@ -111,9 +111,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-right">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-plus"></i>&nbsp; New Folder
-                    </button>
+                    </button> -->
                 </div>
             </div>
             <!-- row -->
@@ -124,121 +124,28 @@
             <!-- Folders -->
 
             <div class="row row-sm mg-b-20 mg-lg-b-0">
-                <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
-                    <div class="dropdown" style="float: left">
-                        <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/3dot.svg" alt="" />
-                        </a>
-                        <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
+                @foreach ($folders as $folder)
+                    <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
+                        <div class="dropdown" style="float: left">
+                            <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/3dot.svg" alt="" />
+                            </a>
+                            <div class="dropdown-menu tx-13">
+                                <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
+                                <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
+                                <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <a href="mi-herat.html">
-                        <i style="color: #0099d4; font-size: 100px" class="fa fa-folder-open" aria-hidden="true"></i>
-                        <br />
-                        <span> MI Herat </span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
-                    <div class="dropdown" style="float: left">
-                        <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/3dot.svg" alt="" />
+                        <a href="{{ url('folders/create?id=' . $folder->id) }}">
+                            <i style="color: #0099d4; font-size: 100px" class="fa fa-folder-open" aria-hidden="true"></i>
+                            <br />
+                            <span> {{ $folder->name}} </span>
                         </a>
-                        <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
-                        </div>
                     </div>
+                @endforeach
 
-                    <a href="">
-                        <i style="color: #0099d4; font-size: 100px" class="fa fa-folder" aria-hidden="true"></i>
-                        <br />
-                        <span> MI Herat </span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
-                    <div class="dropdown" style="float: left">
-                        <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/3dot.svg" alt="" />
-                        </a>
-                        <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
-                        </div>
-                    </div>
-
-                    <a href="">
-                        <i style="color: #0099d4; font-size: 100px" class="fa fa-folder" aria-hidden="true"></i>
-                        <br />
-                        <span> MI Herat </span>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
-                    <div class="dropdown" style="float: left">
-                        <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/3dot.svg" alt="" />
-                        </a>
-                        <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
-                        </div>
-                    </div>
-
-                    <a href="">
-                        <i style="color: #0099d4; font-size: 100px" class="fa fa-folder" aria-hidden="true"></i>
-                        <br />
-                        <span> MI Herat </span>
-                    </a>
-                </div>
-
-                <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
-                    <div class="dropdown" style="float: left">
-                        <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/3dot.svg" alt="" />
-                        </a>
-                        <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
-                        </div>
-                    </div>
-
-                    <a href="">
-                        <i style="color: #0099d4; font-size: 100px" class="fa fa-folder" aria-hidden="true"></i>
-                        <br />
-                        <span> MI Herat </span>
-                    </a>
-                </div>
-
-                <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
-                    <div class="dropdown" style="float: left">
-                        <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../assets/3dot.svg" alt="" />
-                        </a>
-                        <div class="dropdown-menu tx-13">
-                            <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
-                            <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                            <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
-                        </div>
-                    </div>
-                    <a href="">
-                        <i style="color: #0099d4; font-size: 100px" class="fa fa-folder" aria-hidden="true"></i>
-                        <br />
-                        <span> MI Herat </span>
-                    </a>
-                </div>
             </div>
 
 

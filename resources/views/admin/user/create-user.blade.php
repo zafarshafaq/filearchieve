@@ -42,20 +42,30 @@
             <h3>User Form</h3>
             <br />
 
+            @if(session('msg'))
+            <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{session('msg')}}.
+            </div>
+            @endif
 
 
-            <form method="POST" action="{{ route('register') }}">
+            <form method="POST" action="{{ route('users.store') }}" id="create-user-form">
                 @csrf
+
+
+                <input type="hidden" name="type" value="user">
                 <div class="row row-sm">
+
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="username">
                                     User Name</span>
                             </div>
-                            <input type="text" class="form-control" id="" aria-label="Username"name ="name" value ="{{ old('name') }} "
+                            <input type="text" class="form-control" aria-label="Username" name ="name" value ="{{ old('name') }}"
                                 aria-describedby="username" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            
                         </div>
                         <!-- input-group -->
                     </div>
@@ -92,11 +102,11 @@
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
+                                <span class="input-group-text" id="position">
                                     Position</span>
                             </div>
                             <input type="text" class="form-control" aria-label="Position"
-                                aria-describedby="basic-addon1" />
+                                aria-describedby="position" name="position" value="{{ old('position')}}" />
                         </div>
                         <!-- input-group -->
                     </div>
@@ -104,15 +114,26 @@
                 </div>
                 <!-- row -->
 
-
                 <div class="row row-sm">
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Password</span>
+                                <span class="input-group-text" id="password">Password</span>
                             </div>
                             <input type="password" class="form-control" aria-label="password"
-                                aria-describedby="basic-addon1" />
+                                aria-describedby="password" name="password" value="{{ old('password')}}" />
+                        </div>
+                        <!-- input-group -->
+                    </div>
+                    <!-- col -->
+
+                    <div class="col-lg-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="password_confirmation">Confirm Password</span>
+                            </div>
+                            <input type="password" class="form-control" aria-label="password"
+                                aria-describedby="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation')}}" />
                         </div>
                         <!-- input-group -->
                     </div>
@@ -120,17 +141,20 @@
                 </div>
                 <!-- row -->
 
-
+                <!-- row -->
                 <div class="row row-sm">
                     <div class="col-lg-6">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>
 
+    
 </div>
-< @endsection
+ @endsection
+
+ @section('validator')
+{!! JsValidator::formRequest('App\Http\Requests\UserRequest','#create-user-form') !!}
+@endsection

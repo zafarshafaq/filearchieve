@@ -35,6 +35,19 @@
                 <span>Aid</span>
             </h3>
             <br />
+            @if(session('msg'))
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{session('msg')}}.
+                </div>
+            @elseif(session('error'))
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{session('error')}}.
+                </div>
+            @endif
+
+
 
             <div class="row row-sm">
                 <div class="input-group">
@@ -51,7 +64,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="az-content-label mg-b-5">Search Result</div>
-                    <p class="mg-b-20">5 Result found.</p>
+                    <p class="mg-b-20">{{ $projects->count()}} Result.</p>
                 </div>
                 <div class="col-lg-6 text-right">
                     <div class="text-right">
@@ -81,111 +94,36 @@
                     </thead>
 
                     <tbody style="font-size: 12px">
-                        <tr>
-                            <td>1</td>
-                            <td>AFV-Health</td>
-                            <td>AFV</td>
-                            <td>Kabul</td>
-                            <td>Mohammad Karim</td>
-                            <td>12/03/2023</td>
-                            <td>12/03/2024</td>
 
-                            <td>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
-                            </td>
-                        </tr>
+                        @foreach ($projects as $key => $project)
 
-                        <tr>
-                            <td>2</td>
-                            <td>MI Mazar</td>
-                            <td>MI</td>
-                            <td>Mazar</td>
-                            <td>Mohammad Ali</td>
-                            <td>12/03/2019</td>
-                            <td>12/03/2020</td>
+                            <tr>
 
-                            <td>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
-                            </td>
-                        </tr>
+                                <td>{{$key++}}</td>
+                                <td>{{ $project->name }}</td>
+                                <td>{{ $project->donar }}</td>
+                                <td>{{ $project->location }}</td>
+                                <td>{{ $project->proj_manager }}</td>
+                                <td>{{ $project->start_date }}</td>
+                                <td>{{ $project->end_date }}</td>
 
-                        <tr>
-                            <td>3</td>
-                            <td>GIZ Herat</td>
-                            <td>GIZ</td>
-                            <td>Herat</td>
-                            <td>Abdul Rasool</td>
-                            <td>12/03/2015</td>
-                            <td>12/03/2017</td>
+                                <td>
+                                    <a href="{{ route('projects.edit', $project->id)}}">
+                                        <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
+                                    <a href="#" onclick="handleDelete('delete-project-modal')">
+                                        <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
+                                </td>
+                            </tr>
 
-                            <td>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
-                            </td>
-                        </tr>
+                        @endforeach
 
-                        <tr>
-                            <td>4</td>
-                            <td>AFV-Health</td>
-                            <td>AFV</td>
-                            <td>Jowzjan</td>
-                            <td>Mohammad Jalal</td>
-                            <td>12/03/2017</td>
-                            <td>12/03/2018</td>
 
-                            <td>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>DAHW-Health</td>
-                            <td>DAHW</td>
-                            <td>Kabul</td>
-                            <td>Abdul Satar</td>
-                            <td>12/03/2023</td>
-                            <td>12/03/2024</td>
-
-                            <td>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
-                                <a href="">
-                                    <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="ht-40"></div>
-            <div class="az-footer ht-40">
-                <div class="container ht-100p pd-t-0-f">
-                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © <span
-                            style="color: #0099d4">Union</span>&nbsp;
-                        <span style="color: black; font-weight: bold">Aid</span>
-                        2024</span>
-                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
-                        Developed By
-                        <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">
-                            <span style="color: black">IT Department at</span></a>
 
-                        <span style="color: #0099d4">Union</span>&nbsp;
-                        <span style="color: black; font-weight: bold">Aid</span>
-                    </span>
-                </div>
-                <!-- container -->
-            </div>
+
             <!-- az-footer -->
         </div>
         <!-- az-content-body -->
@@ -193,6 +131,36 @@
     <!-- container -->
 </div>
 
+<!-- Project Delete Modal -->
+
+
+
+<div class="modal fade" id="delete-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <form action="{{ route('projects.destroy', $project->id)}}" method="post" id="delete-project-form">
+                    @csrf
+                    @method('delete')
+                    <h4> Are you sure? you want to delete this project?</h4>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+                    No
+                </button>
+                <button type="submit" form="delete-project-form" class="btn btn-sm btn-danger">
+                    Yes
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

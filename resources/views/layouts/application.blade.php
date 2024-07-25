@@ -18,24 +18,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Twitter -->
-    <!-- <meta name="twitter:site" content="@bootstrapdash">
-    <meta name="twitter:creator" content="@bootstrapdash">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Azia">
-    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="twitter:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png"> -->
-
-    <!-- Facebook -->
-    <!-- <meta property="og:url" content="https://www.bootstrapdash.com/azia">
-    <meta property="og:title" content="Azia">
-    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
-
-    <meta property="og:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:secure_url" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600"> -->
 
     <!-- Meta -->
     <meta name="description" content="Responsive Bootstrap 4 Dashboard Template" />
@@ -48,6 +30,7 @@
     <link href="{{ asset('assets/lib/ionicons/css/ionicons.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('assets/lib/typicons.font/typicons.css')}}" rel="stylesheet" />
     <link href="{{ asset('assets/lib/flag-icon-css/css/flag-icon.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/lib/pickerjs/picker.min.css')}}" rel="stylesheet" />
 
     <!-- azia CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/azia.css')}}" />
@@ -67,6 +50,14 @@
     <!-- az-footer -->
 
     <script src="{{ asset('assets/lib/jquery/jquery.min.js')}}"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script> -->
+
+    <script src="{{ asset('assets/lib/popper.js/popper.min.js')}}"></script>
+
+    <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('assets/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/lib/ionicons/ionicons.js')}}"></script>
     <script src="{{ asset('assets/lib/jquery.flot/jquery.flot.js')}}"></script>
@@ -74,10 +65,18 @@
     <script src="{{ asset('assets/lib/chart.js/Chart.bundle.min.js')}}"></script>
     <script src="{{ asset('assets/lib/peity/jquery.peity.min.js')}}"></script>
 
-    <script src="{{ asset('assets/js/azia.js')}}"></script>
     <script src="{{ asset('assets/js/chart.flot.sampledata.js')}}"></script>
     <script src="{{ asset('assets/js/dashboard.sampledata.js')}}"></script>
-    <script src="{{ asset('assets/js/jquery.cookie.js')}}" type="text/javascript"></script>
+
+    <script src="{{asset('assets/js/jquery.cookie.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/azia.js')}}"></script>
+    <script src="{{ asset('assets/js/ajax.js')}}"></script>
+
+
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+
+
+    @yield('validator')
 </body>
 
 </html>

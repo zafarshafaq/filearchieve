@@ -39,20 +39,36 @@
 
 
             </div>
-            <h3>Add Project Form</h3>
+
+
+
+    
+            <h3>Create Project </h3>
             <br />
+            @if(session('msg'))
+            <div class="alert alert-success alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{session('msg')}}.
+            </div>
+            @elseif(session('error'))
+            <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{session('error')}}.
+            </div>
+            @endif
 
-
-            <form action="">
+            <form id="create-project-form" method="Post" action="{{ route('projects.store')}}">
+                @csrf
                 <br />
                 <div class="row row-sm">
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Project Name</span>
+                                <span class="input-group-text" id="project_name">Project Name</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="project_name"
-                                aria-describedby="basic-addon1" />
+                            <input type="text" class="form-control" aria-label="project_name" name="name" value="{{ old('name')}}"
+                                aria-describedby="name"  />
+                                <span id="name-error"></span>
                         </div>
                         <!-- input-group -->
                     </div>
@@ -63,7 +79,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"> Donar</span>
                             </div>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" name="donar" value="{{ old('donar')}}" />
                         </div>
                         <!-- input-group -->
                     </div>
@@ -75,10 +91,10 @@
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Location</span>
+                                <span class="input-group-text" id="location">Location</span>
                             </div>
                             <input type="text" class="form-control" aria-label="location"
-                                aria-describedby="basic-addon1" />
+                                aria-describedby="location" name="location" value="{{ old('location')}}" />
                         </div>
                         <!-- input-group -->
                     </div>
@@ -87,9 +103,10 @@
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Project Manager</span>
+                                <span class="input-group-text" id="proj_manager">Project Manager</span>
                             </div>
-                            <input type="text" class="form-control" aria-label="project_manager" />
+                            <input type="text" aria-describedby="proj_manager" class="form-control" aria-label="proj_manager" name="proj_manager"
+                                value="{{ old('proj_manager')}}" />
                         </div>
                         <!-- input-group -->
                     </div>
@@ -103,7 +120,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Start Date:</div>
                             </div>
-                            <input id="dateMask" type="text" class="form-control" placeholder="MM/DD/YYYY" />
+                            <input id="start_date" type="date" name="start_date" value="{{ old('start_date')}}"
+                                class="form-control" placeholder="MM/DD/YYYY" />
                         </div>
                     </div>
                     <!-- col -->
@@ -113,7 +131,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">End Date:</div>
                             </div>
-                            <input id="dateMask" type="text" class="form-control" placeholder="MM/DD/YYYY" />
+                            <input id="dateMask" name="end_date" value="{{ old('end_date')}}" type="date"
+                                class="form-control" placeholder="MM/DD/YYYY" />
                         </div>
                     </div>
                     <!-- col -->
@@ -124,14 +143,17 @@
                     <div class="col-lg-6">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Sector</span>
+                                <span class="input-group-text" id="sectore">Sector</span>
                             </div>
-                            <select name="" id="" class="form-control">
-                                <option value="Health">Health</option>
-                                <option value="">Education</option>
-                                <option value="">Humaritarian/Emergency</option>
-                                <option value="">WASH</option>
-                                <option value="">Livelihood</option>
+                            
+                       
+                            <select name="sectore" id="sectore" class="form-control">
+                                <option value="">---</option>
+                            @foreach ($sectores as $sectore )
+                            
+
+                            <option value="{{ $sectore->id }}">{{ $sectore->name }}</option>
+                            @endforeach
                             </select>
                         </div>
                         <!-- input-group -->
@@ -142,7 +164,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">Description</span>
                             </div>
-                            <textarea name="" class="form-control" id=""></textarea>
+                            <textarea name="description" value="{{ old('description')}}" class="form-control"
+                                id=""></textarea>
                         </div>
                         <!-- input-group -->
                     </div>
@@ -160,4 +183,10 @@
     </div>
 
 </div>
-< @endsection
+@endsection
+
+
+@section('validator')
+{!! JsValidator::formRequest('App\Http\Requests\ProjectRequest','#create-project-form') !!}
+@endsection
+
