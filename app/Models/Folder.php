@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Rlations\BelongsTo;
+use App\Models\Access;
 
 class Folder extends Model
 {
@@ -79,6 +80,14 @@ class Folder extends Model
     public function childrenRecursive()
     {
         return $this->children()->with('childrenRecursive');
+    }
+
+
+
+    public function users()
+    {
+
+        return $this->belongsToMany(User::class, 'folder_accesses')->withPivot('update', 'read')->withTimestamps();
     }
 
 

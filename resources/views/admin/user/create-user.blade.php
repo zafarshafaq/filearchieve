@@ -50,6 +50,14 @@
             @endif
 
 
+
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{session('error')}}.
+            </div>
+            @endif
+
             <form method="POST" action="{{ route('users.store') }}" id="create-user-form">
                 @csrf
 

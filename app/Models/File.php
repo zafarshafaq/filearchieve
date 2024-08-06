@@ -20,4 +20,12 @@ class File extends Model
     {
         return $this->belongsTo(Folder::class);
     }
+
+    // access relations
+    public function accesses()
+    {
+        return $this->morphMany(Access::class, 'accessable');
+    }
+
+
 }

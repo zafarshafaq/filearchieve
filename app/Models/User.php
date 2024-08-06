@@ -6,6 +6,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+
+
 
 class User extends Authenticatable
 {
@@ -16,13 +19,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'position',
-        'type'
+    protected $guarded = [
     ];
 
     /**
@@ -46,5 +43,36 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public function folders()
+    {
+
+        return $this->belongsToMany(Folder::class, 'folder_accesses')->withPivot('update', 'read')->withTimestamps();
+    }
+
+
+
+
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'folder_accesses')->withPivot('name')->withTimestamps();
+    }
+
+
+
+
+
+    public function hasUpdateAccess($folder_id, $name)
+    {
+
+        if ($this->folders()->wherePivot('update', true)->exists()) {
+
+            return true;
+        }
+
+
+        return false;
     }
 }

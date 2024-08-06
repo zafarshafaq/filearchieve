@@ -14,90 +14,27 @@
                 <span>Documents</span>
             </div>
 
-            <br />
-
-            <div class="new-folder-div">
-                <!-- The Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                    <i class="fa fa-folder"></i> <i class="fa fa-plus"></i> New Folder
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row row-sm">
-                                    <div class="col-lg-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1">
-                                                    Project</span>
-                                            </div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">AFV-Health</option>
-                                                <option value="">GIZ kabul</option>
-                                                <option value="">DAHW</option>
-                                                <option value="">MI</option>
-                                                <option value="">AFV Kabul</option>
-                                            </select>
-                                        </div>
-                                        <!-- input-group -->
-                                    </div>
-                                </div>
-                                <!-- row -->
-
-                                <div class="row row-sm">
-                                    <div class="col-lg-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1">
-                                                    Department</span>
-                                            </div>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">AFV-Health</option>
-                                                <option value="">GIZ kabul</option>
-                                                <option value="">DAHW</option>
-                                                <option value="">MI</option>
-                                                <option value="">AFV Kabul</option>
-                                            </select>
-                                        </div>
-                                        <!-- input-group -->
-                                    </div>
-                                </div>
-
-                                <div class="row row-sm">
-                                    <div class="col-lg-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1">
-                                                    Folder Name</span>
-                                            </div>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                        <!-- input-group -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Close
-                                </button>
-                                <button type="button" class="btn btn-primary">
-                                    Create
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <br>
+            <br>
+            @if(session('msg'))
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{session('msg')}}.
                 </div>
-            </div>
+            @endif
 
-            <br />
+
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{session('error')}}.
+                </div>
+            @endif
+
+
+
+
 
             <div class="row row-sm">
                 <div class="col-lg-6">
@@ -131,10 +68,15 @@
                                 <img src="../assets/3dot.svg" alt="" />
                             </a>
                             <div class="dropdown-menu tx-13">
-                                <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                                <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
+                                <!-- <a class="dropdown-item" href="#"> <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a> -->
                                 <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
+                                <a class="dropdown-item" href="#"><i class=" fa fa-share"></i>&nbsp;
+                                    Share</a>
+                                <a class="dropdown-item" href="#"
+                                    onclick="handleAccess('{{ route('folders.access-modal')}}', 'access-modal', {{$folder->id}})"><i
+                                        class=" fa fa-universal-access"></i>&nbsp;
+                                    Give Access</a>
                             </div>
                         </div>
 
@@ -149,10 +91,158 @@
             </div>
 
 
+
+
+
+
+
+
+
+
         </div>
         <!-- az-content-body -->
     </div>
     <!-- container -->
 </div>
 <!-- az-content -->
+
+
+
+
+<!--  access modal -->
+<div class="modal fade" id="access-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Access Folder
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" id="access-btn" class="btn btn-primary">
+                    submit
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@endsection
+
+
+@section('custom-js')
+
+<script>
+
+
+
+    // Ajax Pagination in laravel
+    $(document).on('click', '.pagination a', function (e) {
+        e.preventDefault();
+        let page = $(this).attr('href').split('page=')[1];
+        paginate(page);
+    });
+
+
+    const paginate = (page) => {
+
+        $.ajax({
+            url: '/pagination/paginate-data?page=' + page,
+            method: "GET",
+            success: function (res) {
+
+                $('.table-responsive').html(res);
+            }
+
+        });
+    }
+
+
+
+
+    // Ajax Search 
+    $(document).on('click', '#search-btn', function (e) {
+        let search_string = $('#search-input').val();
+
+        $.ajax({
+            url: "/users/search",
+            method: 'GET',
+            data: { search_string: search_string },
+            success: function (res) {
+
+                $('.table-responsive').html(res);
+
+                if (res.status == "noting_found") {
+                    $('.table-responsive').html('<span class="text-danger" >' + 'Noting Found' + ' </span>');
+
+                }
+
+            }
+        });
+
+
+    });
+
+
+    $(document).on('click', '#access-btn', function () {
+
+
+
+        let data = [];
+
+        $('#access-table > tbody  > tr').each(function (index, tr) {
+            let user_id = $(tr).data('id');
+            let read_checkbox = $(tr).find('input')[0];
+            let update_checkbox = $(tr).find('input')[1];
+            let read = 0
+            let update = 0;
+            if ($(read_checkbox).is(":checked")) {
+                read = 1;
+            }
+            if ($(update_checkbox).is(":checked")) {
+                update = 1;
+            }
+
+            let d = { user_id: user_id, read: read, update: update };
+            data.push(d);
+
+
+        });
+
+        $.ajax({
+            method: 'Post',
+            url: '{{route('folders.access')}}',
+            data: data,
+            beforeSend: function () {
+
+            },
+            complete: function () {
+
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+
+
+</script>
 @endsection

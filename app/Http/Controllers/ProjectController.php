@@ -110,9 +110,11 @@ class ProjectController extends Controller
     public function destroy(string $id)
     {
         try {
-
             $project = Project::findOrFail($id);
-            $project->delete();
+            DB::transaction(function () use ($project) {
+                $folder = Folder::where('name', $project->name)->first()->delete();
+                $project->delete();
+            });
 
             return redirect()->route('projects.index')
                 ->with('msg', 'Project deleted successfully');

@@ -36,12 +36,7 @@
             <div class="az-content-breadcrumb">
                 <span>Dashboard</span>
                 <span>Create Project</span>
-
-
             </div>
-
-
-
     
             <h3>Create Project </h3>
             <br />

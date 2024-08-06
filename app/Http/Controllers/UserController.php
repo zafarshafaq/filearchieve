@@ -30,15 +30,14 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-
         try {
             $user = User::create($this->mapRequest($request));
-            return redirect()->route('users.create')
+            return redirect()->back()
                 ->with('msg', 'User created successfully');
 
         } catch (\Exception $e) {
 
-            return redirect()->route('users.create')
+            return redirect()->back()
                 ->with('error', $e->getMessage());
         }
 
@@ -111,6 +110,24 @@ class UserController extends Controller
         ];
     }
 
+    public function search(Request $request)
+    {
+
+
+        $users = User::where('name', 'like', '%' . $request->search_string . '%')->orderBy('id', 'desc')->paginate(5);
+
+
+
+        if ($users->count() >= 1) {
+            return view('admin.user.pagination-user', compact('users'))->render();
+
+        } else {
+
+            return response()->json([
+                'status' => 'noting_found',
+            ]);
+        }
+    }
 
 
 

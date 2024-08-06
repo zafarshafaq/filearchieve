@@ -117,4 +117,23 @@ class FileController extends Controller
         //
     }
 
+
+
+    /**
+     * Search files request by ajax request
+     */
+    public function search(Request $request)
+    {
+
+
+        $files = File::where('name', 'like', '%' . $request->search_string . '%')->orderBy('id', 'desc')->paginate(10);
+        if ($files->count() >= 1) {
+            return view('file.pagination-file', compact('files'))->render();
+        } else {
+
+            return response()->json([
+                'status' => 'noting_found',
+            ]);
+        }
+    }
 }

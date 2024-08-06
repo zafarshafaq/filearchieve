@@ -4,55 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\User;
-use App\Models\Folder;
-use App\Models\File;
-
-
-
-class testController extends Controller
+class AccessController extends Controller
 {
-
-    public function test(Request $request)
-    {
-        // $user = User::find(14);
-        // $folder = Folder::find(16);
-
-        // $user->accesses()->attach($folder);
-        // return 'success';
-
-
-        $user = User::find(3);
-        $folder = Folder::find(2);
-        if ($user->hasAccess($folder->id, 'update')) {
-            return 'has access';
-        }
-        return 'not access';
-    }
-
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-
-
-        if ($request->ajax()) {
-            return datatables()->of(User::all())->toJson();
-        }
-        $users = User::all();
-        return view('test', compact('users'));
+        //
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -60,11 +27,7 @@ class testController extends Controller
      */
     public function store(Request $request)
     {
-
-
         return $request->all();
-
-
     }
 
     /**

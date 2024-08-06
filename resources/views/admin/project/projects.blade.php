@@ -110,7 +110,8 @@
                                 <td>
                                     <a href="{{ route('projects.edit', $project->id)}}">
                                         <i style="font-size: 20px" class="typcn typcn-edit"></i></a>
-                                    <a href="#" onclick="handleDelete('delete-project-modal')">
+                                    <a href="#"
+                                        onclick="handleDelete('{{ route('projects.destroy', $project->id)}}', 'delete-project-form', 'project')">
                                         <i style="font-size: 20px" class="typcn typcn-trash"></i></a>
                                 </td>
                             </tr>
@@ -135,32 +136,10 @@
 
 
 
-<div class="modal fade" id="delete-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-            <div class="modal-body">
-
-                <form action="{{ route('projects.destroy', $project->id)}}" method="post" id="delete-project-form">
-                    @csrf
-                    @method('delete')
-                    <h4> Are you sure? you want to delete this project?</h4>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
-                    No
-                </button>
-                <button type="submit" form="delete-project-form" class="btn btn-sm btn-danger">
-                    Yes
-                </button>
-
-            </div>
-        </div>
-    </div>
-</div>
+<form action="" id="delete-project-form" method="post">
+    @csrf
+    @method('delete')
+</form>
 
 
 

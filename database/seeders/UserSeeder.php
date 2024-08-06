@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'hakima@unionaid.org',
             'phone' => '0747043094',
             'position' => 'IT Assistant',
-            'password' => bcrypt('1234567890'),
+            'password' => bcrypt('test'),
             'type' => 'administrator'
         ]);
 

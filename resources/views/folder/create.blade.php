@@ -72,6 +72,7 @@
             <div class="row row-sm mg-b-20 mg-lg-b-0">
                 @foreach ($children as $child)
 
+
                     <div class="col-lg-2 col-xl-2 mg-t-20 mg-lg-t-0 text-center">
                         <div class="dropdown" style="float: left">
                             <a class="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,9 +82,16 @@
                                 <a class="dropdown-item" href="#"
                                     onclick="handleEdit('{{route('folders.edit', $child->id)}}', 'update-folder-modal')">
                                     <i class="fa fa-edit"></i>&nbsp; Edit Folder</a>
-                                <a class="dropdown-item" href="#"> <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
+                                <a class="dropdown-item"
+                                    onclick="handleDelete('{{route('folders.destroy', $child->id)}}', 'delete-folder-form', 'folder')">
+                                    <i class="fa fa-trash"></i>&nbsp; Delete Folder</a>
                                 <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>&nbsp; Download</a>
                                 <a class="dropdown-item" href="#"><i class="fa fa-share"></i>&nbsp; Share</a>
+                                <a class="dropdown-item" href="#"
+                                    onclick="handleAccess('{{route('folders.access-modal')}}', 'access-modal', {{$child->id }})"><i
+                                        class="fa fa-universal-access"></i>&nbsp; Give
+                                    access</a>
+
                             </div>
                         </div>
 
@@ -205,7 +213,7 @@
                         Close
                     </button>
                     <button type="submit" form="update-folder-form" class="btn btn-primary">
-                        Create
+                        Update
                     </button>
 
                 </div>
@@ -291,6 +299,59 @@
     </div>
 
 
+    <form action="" method="post" id="delete-folder-form">
+        @csrf
+        @method('delete')
+
+    </form>
+
+
+
+    <!-- access modal -->
+
+    <div class="modal fade" id="access-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+
+            <form action="{{ route('folders.access')}}" method="post" id="access-form">
+                @csrf
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Give Access
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 
 
     @endsection
@@ -301,4 +362,63 @@
     {!! JsValidator::formRequest('App\Http\Requests\FolderRequest', '#create-folder-form') !!}
     {!! JsValidator::formRequest('App\Http\Requests\FileRequest', '#create-file-form') !!}
 
+    @endsection
+
+
+    @section('custom-js')
+
+
+    <script>
+
+
+        // Ajax Pagination in laravel
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            let page = $(this).attr('href').split('page=')[1];
+            paginate(page);
+        });
+
+
+        const paginate = (page) => {
+
+            $.ajax({
+                url: '/pagination/paginate-data?page=' + page,
+                method: "GET",
+                success: function (res) {
+
+                    $('.table-responsive').html(res);
+                }
+
+            });
+        }
+
+
+
+
+        // Ajax Search 
+        $(document).on('click', '#search-btn', function (e) {
+            let search_string = $('#search-input').val();
+
+            $.ajax({
+                url: "/users/search",
+                method: 'GET',
+                data: { search_string: search_string },
+                success: function (res) {
+
+                    $('.table-responsive').html(res);
+
+                    if (res.status == "noting_found") {
+                        $('.table-responsive').html('<span class="text-danger" >' + 'Noting Found' + ' </span>');
+
+                    }
+
+                }
+            });
+
+
+        });
+
+
+
+    </script>
     @endsection
